@@ -1,19 +1,20 @@
 import React, { Component } from "react";
 
 import { connect } from "react-redux";
-import SearchBar from "./searchBar";
 
 import * as actions from "../actions";
+
+import Post from "./post";
 
 class RecentPosts extends Component {
   componentDidMount() {
     this.props.fetchRecentPosts();
   }
 
-  rednerPosts = function () {
+  renderPosts = function () {
     const posts = this.props.recentPosts.map((post, index) => {
       if (index < 3) {
-        return <li key={index}>{post.title}</li>;
+        return <Post {...post} key={index} />;
       }
     });
     return posts;
@@ -24,7 +25,7 @@ class RecentPosts extends Component {
       <div className="recent-posts">
         <div className="recent-posts-wrapper">
           <div className="recent-posts-heading">Recent Posts</div>
-          <ul className="recent-posts-posts">{this.rednerPosts()}</ul>
+          <ul className="recent-posts-posts">{this.renderPosts()}</ul>
         </div>
       </div>
     );
